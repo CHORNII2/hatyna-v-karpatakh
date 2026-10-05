@@ -202,6 +202,37 @@ table {
   text-decoration: none;
 }
 
+.site-header .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+  white-space: nowrap;
+}
+
+.logo__mark {
+  flex: none;
+  width: 28px;
+  height: 28px;
+}
+
+/* Вузькі екрани: логотип зі знаком і кнопка мають вміститися в один рядок навіть на 360 px */
+@media (max-width: 599px) {
+  .site-header__inner {
+    column-gap: 12px;
+  }
+
+  .site-header .logo {
+    gap: 8px;
+    font-size: 1.12rem;
+  }
+
+  .site-header .btn--small {
+    padding-inline: 12px;
+    font-size: 0.88rem;
+  }
+}
+
 .site-header .btn {
   grid-area: cta;
 }
