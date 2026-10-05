@@ -1,0 +1,44 @@
+{
+  "_note": "Демо-тарифи. Періоди у форматі MM-DD, межі включно. Якщо from > to, період переходить через Новий рік. 02-29 означає кінець лютого в будь-якому році. Сезон з default: true діє в усі інші дні.",
+  "currency": "грн",
+  "seasons": [
+    {
+      "id": "holiday",
+      "name": "Свята",
+      "pricePerNight": 4500,
+      "minNights": 5,
+      "periods": [{ "from": "12-25", "to": "01-08" }]
+    },
+    {
+      "id": "high",
+      "name": "Високий",
+      "pricePerNight": 3200,
+      "minNights": 2,
+      "periods": [
+        { "from": "06-01", "to": "08-31" },
+        { "from": "01-09", "to": "02-29" }
+      ]
+    },
+    {
+      "id": "low",
+      "name": "Низький",
+      "pricePerNight": 2300,
+      "minNights": 2,
+      "default": true,
+      "periods": []
+    }
+  ],
+  "guests": {
+    "min": 1,
+    "max": 8,
+    "included": 4,
+    "extraPerNight": 300
+  },
+  "petPerNight": 200,
+  "cleaningFee": 800,
+  "longStayDiscount": {
+    "minNights": 7,
+    "percent": 10
+  },
+  "bookingWindowMonths": 12
+}
