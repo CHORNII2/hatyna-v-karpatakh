@@ -1,0 +1,679 @@
+/* Хатина в Карпатах — єдиний файл стилів. Mobile-first. */
+
+:root {
+  --bg: #faf6ef;
+  --surface: #ffffff;
+  --text: #2b2a26;
+  --muted: #6b665c;
+  --forest: #2f4a3a;
+  --forest-dark: #223829;
+  --wood: #a8693b;
+  --sand: #e9dfcc;
+  --busy: #d9d4c7;
+  --danger: #b3402a;
+
+  --font-head: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Шкала 17 → 22 → 30 → 40 → 53 px */
+  --fs-small: 0.8235rem;
+  --fs-1: 1rem;
+  --fs-2: 1.294rem;
+  --fs-3: 1.765rem;
+  --fs-4: 2.353rem;
+  --fs-5: 3.118rem;
+
+  --radius: 16px;
+  --radius-btn: 12px;
+  --section-gap: clamp(4rem, 2.5rem + 6vw, 7rem);
+  --gutter: 16px;
+}
+
+@media (min-width: 720px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 106.25%; /* 17px */
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5em;
+  font-family: var(--font-head);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--forest-dark);
+}
+
+h1 {
+  font-size: clamp(var(--fs-4), 1.6rem + 3vw, var(--fs-5));
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(var(--fs-3), 1.3rem + 2vw, var(--fs-4));
+}
+
+h3 {
+  font-size: var(--fs-2);
+}
+
+p {
+  margin: 0 0 1em;
+  max-width: 65ch;
+}
+
+a {
+  color: var(--forest);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--forest-dark);
+}
+
+:focus-visible {
+  outline: 3px solid var(--wood);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Ціни, дати, таблиці — рівні цифри однакової ширини */
+.num,
+table {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 10;
+  padding: 10px 16px;
+  background: var(--forest);
+  color: #fff;
+  border-radius: var(--radius-btn);
+}
+
+.skip-link:focus {
+  top: 8px;
+  color: #fff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-gap) 0;
+}
+
+.section__intro {
+  color: var(--muted);
+}
+
+/* Кнопка */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 24px;
+  border-radius: var(--radius-btn);
+  background: var(--forest);
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--forest-dark);
+  color: #fff;
+}
+
+.btn--small {
+  min-height: 44px;
+  padding: 10px 16px;
+  font-size: 0.94rem;
+}
+
+/* Шапка */
+.site-header__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "logo cta"
+    "nav nav";
+  align-items: center;
+  gap: 4px 16px;
+  padding-block: 12px 4px;
+}
+
+.logo {
+  grid-area: logo;
+  font-family: var(--font-head);
+  font-size: var(--fs-2);
+  color: var(--forest-dark);
+  text-decoration: none;
+}
+
+.site-header .btn {
+  grid-area: cta;
+}
+
+.site-header nav {
+  grid-area: nav;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.94rem;
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--forest);
+  text-decoration: underline;
+}
+
+@media (min-width: 900px) {
+  .site-header__inner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo nav cta";
+    padding-block: 16px;
+  }
+
+  .nav {
+    justify-content: flex-end;
+    gap: 0 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Hero */
+.hero {
+  padding-top: 8px;
+}
+
+.hero__grid {
+  display: grid;
+  gap: 24px;
+}
+
+.hero__img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.hero__lead {
+  font-size: 1.1rem;
+}
+
+.hero__facts {
+  margin: 16px 0 0;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .hero__grid {
+    grid-template-columns: 1.55fr 1fr;
+    align-items: end;
+    gap: 48px;
+  }
+
+  .hero__text {
+    padding-bottom: 8px;
+  }
+}
+
+/* Про котедж */
+.about {
+  display: grid;
+  gap: 28px;
+}
+
+.about__img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.features {
+  display: grid;
+  gap: 20px 32px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.features svg {
+  width: 28px;
+  height: 28px;
+  margin-top: 2px;
+  color: var(--forest);
+}
+
+.features p {
+  margin: 0;
+}
+
+.features strong {
+  display: block;
+  font-weight: 600;
+}
+
+.features span {
+  color: var(--muted);
+}
+
+@media (min-width: 600px) {
+  .features {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .about {
+    grid-template-columns: 5fr 6fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .about__img {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Галерея: мобільний — однакові плитки 4:3, десктоп — мозаїка */
+.gallery {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.gallery__item {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--sand);
+}
+
+/* Абсолютне позиціювання: фото не розтягує рядки сітки */
+.gallery__item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery__item--bedroom img {
+  object-position: center 72%;
+}
+
+.gallery__item--fireplace img {
+  object-position: center 68%;
+}
+
+@media (min-width: 600px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .gallery {
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 16px;
+  }
+
+  .gallery__item--tall {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .gallery__item--bedroom {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .gallery__item--fireplace {
+    grid-column: 3;
+    grid-row: 1 / 3;
+  }
+
+  .gallery__item--bedroom img,
+  .gallery__item--fireplace img {
+    object-position: center;
+  }
+}
+
+/* Стрічка року: ширина сегмента пропорційна кількості днів (--days) */
+.year {
+  display: flex;
+  margin: 32px 0 40px;
+  padding-top: 3.4em;
+  font-size: var(--fs-small);
+  line-height: 1.35;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.year__seg {
+  position: relative;
+  flex: var(--days) 1 0;
+  min-width: 0;
+}
+
+.year__bar {
+  display: block;
+  height: 36px;
+  border-right: 2px solid var(--bg);
+}
+
+.year__seg:first-child .year__bar {
+  border-radius: 8px 0 0 8px;
+}
+
+.year__seg:last-child .year__bar {
+  border-right: 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.year__seg--low .year__bar {
+  background: var(--sand);
+  box-shadow: inset 0 0 0 1px #c9bb9f;
+}
+
+.year__seg--high .year__bar {
+  background: var(--forest);
+}
+
+.year__seg--holiday .year__bar {
+  background: var(--wood);
+}
+
+.year__label {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 6px 0 6px;
+  border-left: 2px solid var(--tick, var(--muted));
+}
+
+.year__label > * {
+  white-space: nowrap;
+}
+
+.year__label b {
+  font-weight: 600;
+}
+
+.year__seg--high {
+  --tick: var(--forest);
+}
+
+.year__seg--holiday {
+  --tick: var(--wood);
+}
+
+/* Вузькі сегменти: свята — підпис над стрічкою, зима — праворуч, займаючи місце під святами */
+.year__seg--above .year__label {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  align-items: flex-end;
+  padding: 0 6px 6px 0;
+  border-left: 0;
+  border-right: 2px solid var(--tick);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.year__seg--end .year__label {
+  margin-left: calc(-100% * var(--borrow, 0) / var(--days));
+  align-items: flex-end;
+  padding: 8px 6px 0 0;
+  border-left: 0;
+  border-right: 2px solid var(--tick);
+  text-align: right;
+}
+
+/* Таблиця тарифів */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.tariffs {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+
+.tariffs th,
+.tariffs td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--sand);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tariffs thead th {
+  color: var(--muted);
+  font-weight: 400;
+  border-bottom: 2px solid var(--forest);
+}
+
+.tariffs tbody th {
+  font-family: var(--font-head);
+  font-weight: 400;
+  font-size: 1.06rem;
+}
+
+.tariffs__period {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.tariffs .num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.extras {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.extras li {
+  padding-left: 18px;
+  position: relative;
+}
+
+/* Крапка, а не риска: риска перед «+300 грн» читалась як мінус */
+.extras li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--wood);
+}
+
+@media (min-width: 900px) {
+  .prices {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .extras {
+    margin-top: 0;
+  }
+}
+
+/* FAQ */
+.faq {
+  max-width: 760px;
+  margin-top: 24px;
+}
+
+.faq details {
+  border-bottom: 1px solid var(--sand);
+}
+
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  padding: 14px 0;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: "+";
+  flex: none;
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--forest);
+}
+
+.faq details[open] summary::after {
+  content: "−";
+}
+
+.faq details p {
+  margin-bottom: 16px;
+}
+
+@media (min-width: 900px) {
+  .faq {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 48px;
+    align-items: start;
+    max-width: none;
+  }
+}
+
+/* Підвал */
+.site-footer {
+  margin-top: var(--section-gap);
+  padding-block: 40px;
+  background: var(--forest-dark);
+  color: #e9e4d8;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: 24px;
+}
+
+.site-footer .logo {
+  color: #fff;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer .site-footer__note {
+  margin-top: 12px;
+  font-size: var(--fs-small);
+  color: #c9c3b4;
+}
+
+@media (min-width: 720px) {
+  .site-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+  }
+}
