@@ -32,7 +32,7 @@ export function getSeason(isoDate, pricing) {
   return found || pricing.seasons.find((s) => s.default);
 }
 
-function nightsWord(n) {
+export function nightsWord(n) {
   const last = n % 10;
   const lastTwo = n % 100;
   if (last === 1 && lastTwo !== 11) return 'ніч';

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Бронювання — Хатина в Карпатах</title>
+  <meta name="description" content="Календар вільних дат котеджу «Хатина в Карпатах». Демо-проєкт.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до вмісту</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="./">Хатина в Карпатах</a>
+      <nav aria-label="Головна навігація">
+        <ul class="nav">
+          <li><a href="./#about">Про котедж</a></li>
+          <li><a href="./#gallery">Галерея</a></li>
+          <li><a href="./#prices">Тарифи</a></li>
+          <li><a href="./#faq">Питання</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--small" href="booking.html" aria-current="page">Бронювання</a>
+    </div>
+  </header>
+
+  <main id="main" class="container booking">
+    <h1>Бронювання</h1>
+    <p class="section__intro">Оберіть дату заїзду, потім дату виїзду. Заїзд з 14:00, виїзд до 11:00.</p>
+
+    <div id="calendar" class="booking__calendar"></div>
+    <script>
+      // Модулі не працюють з file:// — пояснюємо, що робити
+      if (location.protocol === 'file:') {
+        document.getElementById('calendar').innerHTML =
+          '<p class="notice notice--error" role="alert">Запустіть сайт через сервер (не відкривайте файл подвійним кліком).</p>';
+      }
+    </script>
+
+    <ul class="cal-legend" aria-label="Позначення в календарі" hidden>
+      <li><span class="cal-legend__swatch cal-legend__swatch--free"></span>Вільно</li>
+      <li><span class="cal-legend__swatch cal-legend__swatch--busy"></span>Зайнято</li>
+      <li><span class="cal-legend__swatch cal-legend__swatch--checkout"></span>Можна виїхати</li>
+      <li><span class="cal-legend__swatch cal-legend__swatch--selected"></span>Ваші дати</li>
+    </ul>
+
+    <h2 class="visually-hidden">Обрані дати</h2>
+    <dl id="selection" class="selection"></dl>
+  </main>
+
+  <script type="module" src="js/booking.js"></script>
+</body>
+</html>
