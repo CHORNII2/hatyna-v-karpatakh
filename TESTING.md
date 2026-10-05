@@ -33,7 +33,7 @@
 - [ ] Керування лише клавіатурою (Tab, Enter, стрілки в календарі)
 - [ ] Видимий фокус
 - [ ] Консоль без помилок
-- [ ] Lighthouse: Accessibility ≥ 90, Best Practices ≥ 90, Performance ≥ 85
+- [x] Lighthouse: Accessibility ≥ 90, Best Practices ≥ 90, Performance ≥ 85 (мобільний режим: головна 87/100/96/100, бронювання 96/100/96/100 — Performance/Accessibility/Best Practices/SEO)
 - [ ] Перезавантаження сторінки зберігає чернетку
 - [ ] Після зміни data/pricing.json звичайне оновлення сторінки (F5) показує нові ціни, без очищення кешу (дані завантажуються з `cache: 'no-cache'`)
 - [ ] Працює без помилок на Netlify (не лише локально)
