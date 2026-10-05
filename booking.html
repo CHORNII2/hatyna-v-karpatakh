@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Бронювання — Хатина в Карпатах</title>
-  <meta name="description" content="Календар вільних дат котеджу «Хатина в Карпатах». Демо-проєкт.">
+  <meta name="description" content="Вільні дати й вартість проживання в котеджі «Хатина в Карпатах». Демо-проєкт.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -27,27 +27,89 @@
   </header>
 
   <main id="main" class="container booking">
-    <h1>Бронювання</h1>
-    <p class="section__intro">Оберіть дату заїзду, потім дату виїзду. Заїзд з 14:00, виїзд до 11:00.</p>
+    <div id="booking-view">
+      <h1>Бронювання</h1>
+      <p class="section__intro">Оберіть дати, кількість гостей і залиште контакти. Вартість рахується одразу.</p>
 
-    <div id="calendar" class="booking__calendar"></div>
-    <script>
-      // Модулі не працюють з file:// — пояснюємо, що робити
-      if (location.protocol === 'file:') {
-        document.getElementById('calendar').innerHTML =
-          '<p class="notice notice--error" role="alert">Запустіть сайт через сервер (не відкривайте файл подвійним кліком).</p>';
-      }
-    </script>
+      <p id="load-error" class="notice notice--error" role="alert" hidden></p>
 
-    <ul class="cal-legend" aria-label="Позначення в календарі" hidden>
-      <li><span class="cal-legend__swatch cal-legend__swatch--free"></span>Вільно</li>
-      <li><span class="cal-legend__swatch cal-legend__swatch--busy"></span>Зайнято</li>
-      <li><span class="cal-legend__swatch cal-legend__swatch--checkout"></span>Можна виїхати</li>
-      <li><span class="cal-legend__swatch cal-legend__swatch--selected"></span>Ваші дати</li>
-    </ul>
+      <div id="booking-layout" class="booking__layout">
+        <section class="booking__dates" aria-labelledby="dates-title">
+          <h2 id="dates-title" class="booking__step">Дати</h2>
+          <p id="draft-notice" class="notice" hidden></p>
+          <div id="calendar" class="booking__calendar"></div>
+          <ul class="cal-legend" aria-label="Позначення в календарі" hidden>
+            <li><span class="cal-legend__swatch cal-legend__swatch--free"></span>Вільно</li>
+            <li><span class="cal-legend__swatch cal-legend__swatch--busy"></span>Зайнято</li>
+            <li><span class="cal-legend__swatch cal-legend__swatch--checkout"></span>Можна виїхати</li>
+            <li><span class="cal-legend__swatch cal-legend__swatch--selected"></span>Ваші дати</li>
+          </ul>
+        </section>
 
-    <h2 class="visually-hidden">Обрані дати</h2>
-    <dl id="selection" class="selection"></dl>
+        <section class="booking__guests" aria-labelledby="guests-title">
+          <h2 id="guests-title" class="booking__step">Гості</h2>
+          <div class="field">
+            <label for="guests">Кількість гостей</label>
+            <div class="stepper">
+              <button type="button" class="stepper__btn" data-step="-1" aria-controls="guests" aria-label="Менше гостей">−</button>
+              <input id="guests" type="text" inputmode="numeric" value="2" aria-describedby="guests-hint" autocomplete="off">
+              <button type="button" class="stepper__btn" data-step="1" aria-controls="guests" aria-label="Більше гостей">+</button>
+            </div>
+            <p id="guests-hint" class="field__hint"></p>
+          </div>
+          <label class="check"><input id="pet" type="checkbox"> З твариною</label>
+        </section>
+
+        <aside class="booking__quote" aria-labelledby="quote-title">
+          <div class="quote">
+            <h2 id="quote-title" class="quote__title">Вартість</h2>
+            <div id="quote-body"></div>
+            <p id="quote-live" class="visually-hidden" aria-live="polite"></p>
+          </div>
+        </aside>
+
+        <section class="booking__form" aria-labelledby="form-title">
+          <h2 id="form-title" class="booking__step">Контакти</h2>
+          <form id="booking-form" novalidate>
+            <div class="field">
+              <label for="name">Ім'я</label>
+              <input id="name" name="name" type="text" autocomplete="name" maxlength="60" aria-describedby="name-error">
+              <p id="name-error" class="field__error" hidden></p>
+            </div>
+            <div class="field">
+              <label for="phone">Телефон</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="phone-hint phone-error">
+              <p id="phone-hint" class="field__hint">Наприклад, +380671234567 або 0671234567</p>
+              <p id="phone-error" class="field__error" hidden></p>
+            </div>
+            <p id="submit-reason" class="field__hint submit-reason"></p>
+            <button id="submit" type="submit" class="btn" aria-describedby="submit-reason">Забронювати</button>
+            <p class="draft-note">Дані зберігаються лише у вашому браузері.</p>
+          </form>
+        </section>
+      </div>
+      <script>
+        // Модулі не працюють з file:// — ховаємо форму й пояснюємо, що робити
+        if (location.protocol === 'file:') {
+          const msg = document.getElementById('load-error');
+          msg.textContent = 'Запустіть сайт через сервер (не відкривайте файл подвійним кліком).';
+          msg.hidden = false;
+          document.getElementById('booking-layout').hidden = true;
+        }
+      </script>
+    </div>
+
+    <section id="confirm" class="confirm" aria-labelledby="confirm-title" hidden>
+      <h1 id="confirm-title" tabindex="-1">Запит сформовано</h1>
+      <p class="notice">Це демо: запит нікуди не надіслано. Скопіюйте його й надішліть господарю зручним способом.</p>
+      <dl id="confirm-summary" class="summary"></dl>
+      <div class="confirm__actions">
+        <button id="copy" type="button" class="btn">Копіювати запит</button>
+        <button id="edit" type="button" class="btn btn--ghost">Змінити дані</button>
+      </div>
+      <p id="copy-status" class="copy-status" role="status"></p>
+      <pre id="request-text" class="request-text" hidden></pre>
+    </section>
   </main>
 
   <script type="module" src="js/booking.js"></script>

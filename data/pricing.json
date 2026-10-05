@@ -5,6 +5,7 @@
     {
       "id": "holiday",
       "name": "Свята",
+      "label": "святковий сезон",
       "pricePerNight": 4500,
       "minNights": 5,
       "periods": [{ "from": "12-25", "to": "01-08" }]
@@ -12,6 +13,7 @@
     {
       "id": "high",
       "name": "Високий",
+      "label": "високий сезон",
       "pricePerNight": 3200,
       "minNights": 2,
       "periods": [
@@ -22,6 +24,7 @@
     {
       "id": "low",
       "name": "Низький",
+      "label": "низький сезон",
       "pricePerNight": 2300,
       "minNights": 2,
       "default": true,

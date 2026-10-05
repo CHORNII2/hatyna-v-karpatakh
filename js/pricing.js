@@ -67,6 +67,7 @@ export function calculatePrice({ checkIn, checkOut, guests, pet }, pricing) {
       bySeason.set(season.id, {
         id: season.id,
         name: season.name,
+        label: season.label,
         pricePerNight: season.pricePerNight,
         nights: 0,
         sum: 0,

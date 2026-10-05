@@ -90,21 +90,24 @@ const STATUS_TEXT = {
   busy: 'зайнято',
 };
 
+// Ширина календаря, з якої видно 2 місяці (те саме значення в @container у style.css)
+const TWO_MONTHS_MIN_WIDTH = 640;
+
 /**
  * Малює календар у container.
- * options: { today, maxDate, bookings, onChange({ checkIn, checkOut }) }
+ * options: { today, maxDate, bookings, initial: { checkIn, checkOut }, onChange({ checkIn, checkOut }) }
  */
 export function createCalendar(container, options) {
   const ctx = { today: options.today, maxDate: options.maxDate, bookings: options.bookings };
   const minFocus = monthStart(ctx.today);
   const maxFocus = monthEnd(ctx.maxDate);
-  const wide = window.matchMedia('(min-width: 900px)');
+  const initial = options.initial ?? {};
 
   const state = {
-    checkIn: null,
-    checkOut: null,
-    focused: ctx.today,
-    view: monthStart(ctx.today),
+    checkIn: initial.checkIn ?? null,
+    checkOut: initial.checkOut ?? null,
+    focused: initial.checkIn ?? ctx.today,
+    view: monthStart(initial.checkIn ?? ctx.today),
   };
 
   container.classList.add('cal');
@@ -119,7 +122,8 @@ export function createCalendar(container, options) {
   const statusEl = container.querySelector('.cal__status');
   const [prevBtn, nextBtn] = container.querySelectorAll('.cal__arrow');
 
-  const monthsVisible = () => (wide.matches ? 2 : 1);
+  // Скільки місяців показувати, залежить від ширини самого календаря, а не вікна
+  const monthsVisible = () => (container.clientWidth >= TWO_MONTHS_MIN_WIDTH ? 2 : 1);
   const lastVisible = () => addMonths(state.view, monthsVisible() - 1);
 
   function say(text) {
@@ -180,10 +184,18 @@ export function createCalendar(container, options) {
     options.onChange?.({ checkIn: state.checkIn, checkOut: state.checkOut });
   }
 
+  // Опис поточного вибору — рядок під календарем показує його завжди, навіть одразу після завантаження
+  function selectionText() {
+    if (!state.checkIn) return 'Оберіть дату заїзду.';
+    if (!state.checkOut) return `Заїзд ${formatDate(state.checkIn, false)}. Тепер оберіть дату виїзду.`;
+    const nights = Math.round((parseISODate(state.checkOut) - parseISODate(state.checkIn)) / DAY_MS);
+    return `Обрано: ${formatDate(state.checkIn, false)} – ${formatDate(state.checkOut, false)}, ${nights} ${nightsWord(nights)}.`;
+  }
+
   function startNew(iso, prefix = '') {
     state.checkIn = iso;
     state.checkOut = null;
-    say(`${prefix}Заїзд ${formatDate(iso, false)}. Тепер оберіть дату виїзду.`);
+    say(prefix + selectionText());
   }
 
   function select(iso) {
@@ -197,8 +209,7 @@ export function createCalendar(container, options) {
     if (waitingCheckOut && iso > state.checkIn) {
       if (canCheckOut(state.checkIn, iso, ctx)) {
         state.checkOut = iso;
-        const nights = Math.round((parseISODate(iso) - parseISODate(state.checkIn)) / DAY_MS);
-        say(`Обрано: ${formatDate(state.checkIn, false)} – ${formatDate(iso, false)}, ${nights} ${nightsWord(nights)}.`);
+        say(selectionText());
       } else if (canCheckIn(iso, ctx)) {
         startNew(iso, 'Між датами є зайняті ночі, тому вибір почато заново. ');
       } else {
@@ -263,7 +274,14 @@ export function createCalendar(container, options) {
     render();
   });
 
-  wide.addEventListener('change', () => render());
+  let shownMonths = monthsVisible();
+  new ResizeObserver(() => {
+    if (monthsVisible() !== shownMonths) {
+      shownMonths = monthsVisible();
+      render();
+    }
+  }).observe(container);
 
   render();
+  say(selectionText());
 }

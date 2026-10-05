@@ -26,11 +26,13 @@
 /js/calendar.js     рендер календаря, вибір діапазону
 /js/pricing.js      чиста функція розрахунку вартості (легко тестувати)
 /js/booking.js      зв'язує UI, валідацію, форму, localStorage
+/js/booking-logic.js чиста логіка бронювання: валідація, текст запиту, чернетка (без DOM)
 /data/bookings.json зайняті дати
 /data/pricing.json  сезони, тарифи, правила
 /tests/pricing.test.js  тести розрахунку (Node, без залежностей)
 /tests/tariffs.test.js  тарифи в index.html збігаються з pricing.json
 /tests/calendar.test.js тести чистих функцій календаря
+/tests/booking.test.js  тести логіки бронювання (телефон, ім'я, текст запиту, чернетка)
 /assets/            зображення (оптимізовані, з alt)
 ```
 
@@ -38,7 +40,7 @@
 - Mobile-first, мінімальна ширина 360 px, без горизонтального скролу.
 - Семантична розмітка, `alt`, підписи до полів, видимий фокус, контраст ≥ 4.5:1, навігація з клавіатури.
 - Цінова логіка тільки в `pricing.js`; дати в ISO (`YYYY-MM-DD`), працювати з UTC, щоб не ловити зсув часових поясів.
-- Після змін запускай усі тести (`node tests/pricing.test.js`, `tariffs.test.js`, `calendar.test.js`) і перевіряй сторінку локально (`npx serve .` або `python3 -m http.server`).
+- Після змін запускай усі тести (`node tests/pricing.test.js`, `tariffs.test.js`, `calendar.test.js`, `booking.test.js`) і перевіряй сторінку локально (`npx serve .` або `python3 -m http.server`).
 
 ## Git
 - Невеликі коміти зі зрозумілими повідомленнями (українською або англійською, послідовно).
