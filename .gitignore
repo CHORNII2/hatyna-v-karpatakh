@@ -3,3 +3,9 @@ node_modules/
 .DS_Store
 Thumbs.db
 .netlify/
+
+# Налаштування Claude Code і тимчасові файли
+.claude/
+.shot/
+*.log
+*.tmp
