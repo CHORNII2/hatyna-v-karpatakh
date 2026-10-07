@@ -929,6 +929,29 @@ table {
   background: var(--forest);
 }
 
+.cal-legend__swatch--between {
+  border-color: #c3d6c7;
+  background: #dce8de;
+}
+
+/* Крапка як у клітинці сьогоднішньої дати */
+.cal-legend__swatch--today {
+  position: relative;
+  border-color: var(--line);
+}
+
+.cal-legend__swatch--today::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--text);
+}
+
 @media (min-width: 600px) {
   .cal__month {
     border-spacing: 4px;
