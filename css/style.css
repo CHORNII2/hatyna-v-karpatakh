@@ -9,6 +9,7 @@
   --forest-dark: #223829;
   --wood: #a8693b;
   --sand: #e9dfcc;
+  --line: #998a6e; /* межі клікабельних елементів, ≥ 3:1 до фону */
   --busy: #d9d4c7;
   --danger: #b3402a;
 
@@ -753,7 +754,7 @@ table {
 .cal__arrow {
   width: 44px;
   height: 44px;
-  border: 1px solid var(--sand);
+  border: 1px solid var(--line);
   border-radius: var(--radius-btn);
   background: var(--surface);
   color: var(--forest);
@@ -818,6 +819,10 @@ table {
   font: inherit;
   font-variant-numeric: lining-nums tabular-nums;
   cursor: pointer;
+}
+
+.cal__day--free {
+  border-color: var(--line);
 }
 
 .cal__day--free:hover,
@@ -902,6 +907,10 @@ table {
   border: 1px solid var(--sand);
   border-radius: 5px;
   background: var(--surface);
+}
+
+.cal-legend__swatch--free {
+  border-color: var(--line);
 }
 
 .cal-legend__swatch--busy {
