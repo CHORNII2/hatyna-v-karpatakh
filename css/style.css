@@ -1240,3 +1240,28 @@ table {
   white-space: pre-wrap;
   user-select: all;
 }
+
+/* Відгук на наведення й натискання: плавна зміна кольору, на дотик — трохи темніше */
+.btn,
+.cal__arrow,
+.cal__day,
+.stepper__btn {
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out, filter 100ms ease-out;
+}
+
+.btn:active:not(:disabled),
+.cal__arrow:active:not(:disabled),
+.stepper__btn:active:not(:disabled),
+.cal__day--free:active,
+.cal__day--checkout-only:active {
+  filter: brightness(0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .cal__arrow,
+  .cal__day,
+  .stepper__btn {
+    transition: none;
+  }
+}
