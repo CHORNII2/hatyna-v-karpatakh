@@ -546,6 +546,17 @@ table {
   text-align: right;
 }
 
+/* Вузькі екрани: діапазони дат не влазять і накладаються — вони є в таблиці нижче */
+@media (max-width: 480px) {
+  .year {
+    padding-top: 2em;
+  }
+
+  .year__label b + span {
+    display: none;
+  }
+}
+
 /* Таблиця тарифів */
 .table-wrap {
   overflow-x: auto;
